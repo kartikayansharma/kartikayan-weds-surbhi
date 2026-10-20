@@ -308,9 +308,10 @@ function initMusicPlayer() {
       p.then(() => setPlayingUI(true)).catch(() => {
         const onInteract = () => {
           startPlayback();
-          ["click", "touchstart", "keydown"].forEach((evt) => document.removeEventListener(evt, onInteract));
+          ["click", "touchend", "keydown"].forEach((evt) => document.removeEventListener(evt, onInteract));
         };
-        ["click", "touchstart", "keydown"].forEach((evt) => document.addEventListener(evt, onInteract, { once: true, passive: true }));
+        // iPhones only count a finished tap (touchend), not touchstart, as permission to play
+        ["click", "touchend", "keydown"].forEach((evt) => document.addEventListener(evt, onInteract, { once: true, passive: true }));
       });
     }
   }
@@ -323,6 +324,17 @@ function initMusicPlayer() {
     } else {
       startPlayback();
     }
+  });
+
+  // Opening screen: the tap that opens the invitation is what lets the browser play sound
+  const gate = $("#gate");
+  $("#gateBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    audio.volume = 0.3;
+    startPlayback();
+    gate.classList.add("open");
+    document.documentElement.classList.remove("gated");
+    window.scrollTo(0, 0);
   });
 
   tryAutoplay();

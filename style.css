@@ -376,6 +376,48 @@ a { color: inherit; }
 }
 .copy { margin-top: calc(50 * var(--tu)); font-size: max(14px, calc(14 * var(--tu))); opacity: .6; }
 
+/* ============ Opening screen (tap to open, starts the music) ============ */
+html.gated, html.gated body { overflow: hidden; }
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--gold);
+  /* stars, softened in the middle so they don't sit behind the names */
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 50%, rgba(25, 66, 98, .92) 0, rgba(25, 66, 98, .7) 55%, rgba(25, 66, 98, 0) 100%),
+    #1d4a6d url("./assets/art/stars.avif") center top / 562px auto repeat;
+  transition: opacity .8s ease, visibility .8s ease;
+}
+.gate.open { opacity: 0; visibility: hidden; pointer-events: none; }
+html:not(.js) .gate { display: none; }
+.gate-mono { height: clamp(110px, 28vw, 170px); width: auto; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .3)); }
+.gate-names { font-weight: 500; font-size: clamp(40px, 11vw, 84px); line-height: 1.05; text-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
+.gate-amp { display: block; font-size: .55em; }
+.gate-sub { color: var(--cream); font-size: clamp(18px, 4.6vw, 24px); font-style: italic; }
+.gate-btn {
+  margin-top: 10px;
+  padding: 14px 34px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  background: rgba(16, 45, 70, .7);
+  color: var(--gold);
+  font-family: var(--caps);
+  font-size: 18px;
+  letter-spacing: .18em;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
+  animation: gate-glow 2.4s ease-in-out infinite;
+}
+@keyframes gate-glow { 50% { box-shadow: 0 0 0 6px rgba(214, 181, 106, .18), 0 8px 20px rgba(0, 0, 0, .35); } }
+
 /* ============ Scroll prompt ============ */
 .scroll-cue {
   position: fixed;

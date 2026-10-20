@@ -11,11 +11,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500&family=Gotu&display=swap" rel="stylesheet">
 
-  <!-- marks that scripts run, so entrance animations only hide content when they can also reveal it -->
-  <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="./style.css">
+  <!-- marks that scripts run, so entrance animations only hide content when they can also reveal it;
+       "gated" holds the page behind the opening screen until the guest taps it -->
+  <script>document.documentElement.classList.add("js", "gated");</script>
+  <!-- ?v= changes with each update, so browsers never keep an old copy -->
+  <link rel="stylesheet" href="./style.css?v=4">
 </head>
 <body>
+
+  <!-- Opening screen: browsers only allow sound after a tap, so the guest taps to open
+       the invitation and the music starts with that tap -->
+  <div class="gate" id="gate">
+    <img class="gate-mono" src="./assets/art/monogram.webp" alt="">
+    <p class="gate-names"><span data-bind="groom.firstName">Kartikayan</span> <span class="gate-amp">&amp;</span> <span data-bind="bride.firstName">Surbhi</span></p>
+    <p class="gate-sub">invite you to celebrate their wedding</p>
+    <button class="gate-btn" id="gateBtn" type="button">Open invitation</button>
+  </div>
 
   <!-- Music -->
   <div class="music reveal-init" id="musicWrap">
@@ -210,6 +221,6 @@
     </div>
   </footer>
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
