@@ -81,30 +81,60 @@ a { color: inherit; }
   overflow: hidden; /* clip here, not on the stage, so wide screens see the trees and flowers spill past the column */
   background: #1d4a6d url("./assets/art/stars.avif") center top / 562px auto repeat;
 }
-.hero-stage { aspect-ratio: 562 / 1350; }
-/* the sky panel overlaps Shiva: deepen the shadow under its curve */
-.hero .sky { filter: drop-shadow(0 calc(12 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, .5)); }
-.sky-wide { display: none; }
-/* phones: drop Shiva so more of it shows below the sky's curve (laptops reset this further down) */
-.hero .shiva { transform: translateY(calc(70 * var(--u))); }
-.hero-names {
+/* phones: a tall sky, so the first screen holds just the names and Shiva */
+.hero-stage { aspect-ratio: 562 / 2030; }
+/* The sky with the names: a full-width panel whose bottom edge is an arc
+   (a circle of radius --arc-r units centred --arc-cy units down). Phones get
+   a tall panel with a deeper curve; laptops override the numbers. */
+.sky-wide {
+  --sky-h: 840;
+  --arc-r: 484;
+  --arc-cy: 1224;
+  --arc: radial-gradient(circle calc(var(--arc-r) * var(--u)) at 50% calc(var(--arc-cy) * var(--u)), transparent 100%, #000 100%);
+  --rim: radial-gradient(circle calc(var(--arc-r) * var(--u)) at 50% calc(var(--arc-cy) * var(--u)), transparent 100%, #000 100%, #000 100.25%, transparent 100.25%);
   position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--sky-h) * var(--u));
+  filter: drop-shadow(0 calc(10 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, .55));
+  pointer-events: none;
+}
+.sky-wide > div {
+  height: 100%;
+  /* only the starry top of the artwork, never its own curved cut-out */
+  background: #1d4a6d url("./assets/art/hero-top.avif") center top / calc(1300 * var(--u)) auto no-repeat;
+  -webkit-mask: var(--arc);
+  mask: var(--arc);
+}
+/* thin pale rim along the curve, like the edge of cut paper */
+.sky-wide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(226, 214, 176, .7);
+  -webkit-mask: var(--rim);
+  mask: var(--rim);
+}.hero-names {
+  position: absolute;
+  z-index: 2;
   left: 0;
   right: 0;
-  top: calc(2 * var(--u));
+  top: calc(200 * var(--u));
   text-align: center;
   color: var(--gold);
   will-change: transform, opacity;
 }
 .hero-names .monogram {
-  height: calc(108 * var(--u));
+  height: calc(140 * var(--u));
   width: auto;
   margin: 0 auto calc(12 * var(--u));
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .3));
 }
 .hero-names .name {
   font-weight: 500;
-  font-size: calc(64 * var(--u));
+  font-size: calc(92 * var(--u));
   line-height: 1;
   text-shadow: 0 2px 10px rgba(0, 0, 0, .25);
 }
@@ -420,40 +450,11 @@ html:not(.js) .flip-clock, html:not(.js) .music { display: none; }
     width: calc(var(--dw, var(--w)) * var(--u));
     height: calc(var(--dh, var(--h)) * var(--u));
   }
-  .hero .sky, .hero .phone-only { display: none; }
-  .hero .shiva { transform: none; }
-  /* the sky: a full-width panel whose bottom edge is a wide, shallow arc
-     (a circle of radius 1058 units, dipping 38 units from the middle to the edges) */
-  .sky-wide {
-    --arc: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%);
-    --rim: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%, #000 100.2%, transparent 100.2%);
-    display: block;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(275 * var(--u));
-    filter: drop-shadow(0 calc(10 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, .55));
-    pointer-events: none;
-  }
-  .sky-wide > div {
-    height: 100%;
-    /* 35% down the artwork: a patch of sky with no big stars behind the names */
-    background: #1d4a6d url("./assets/art/hero-top.avif") center 35% / 100% auto no-repeat;
-    -webkit-mask: var(--arc);
-    mask: var(--arc);
-  }
-  /* thin pale rim along the curve, like the edge of cut paper */
-  .sky-wide::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(226, 214, 176, .7);
-    -webkit-mask: var(--rim);
-    mask: var(--rim);
-  }
-  .hero-names { z-index: 2; top: calc(14 * var(--u)); }
+  .hero .phone-only { display: none; }
+  /* the sky: a wide, shallow arc (a circle of radius 1058 units, dipping 38 units from the middle to the edges) */
+  .sky-wide { --sky-h: 275; --arc-r: 1058; --arc-cy: 1283; }
+  .sky-wide > div { background-position: center 35%; background-size: 100% auto; }
+  .hero-names { top: calc(14 * var(--u)); }
   .hero-names .monogram { height: calc(62 * var(--u)); margin-bottom: calc(6 * var(--u)); }
   .hero-names .name { font-size: calc(46 * var(--u)); }
   .hero-names .weds { font-size: calc(22 * var(--u)); }
