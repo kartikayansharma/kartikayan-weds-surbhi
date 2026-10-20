@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Kartikayan & Surbhi - Wedding Invitation</title>
+  <meta name="description" content="Join Kartikayan Sharma and Surbhi Jain as they celebrate their wedding on 19-20 February 2027 at La Perle River Resort, Jim Corbett." />
+  <meta name="theme-color" content="#1b4a6b" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500&family=Gotu&display=swap" rel="stylesheet">
+
+  <!-- marks that scripts run, so entrance animations only hide content when they can also reveal it -->
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Music -->
+  <div class="music reveal-init" id="musicWrap">
+    <audio id="bgAudio" loop preload="auto">
+      <source src="./assets/our-hearts.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicBtn" aria-label="Play Music">
+      <span id="musicPulse" class="pulse hidden"></span>
+      <svg id="iconMuted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line><line x1="16" y1="9" x2="22" y2="15"></line></svg>
+      <svg id="iconPlaying" class="hidden" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+    </button>
+  </div>
+
+  <!-- Scroll prompt: shown on first load, fades once the guest starts scrolling -->
+  <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+    <span>Scroll down</span>
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <!-- Layer positions are in design units (a 562-unit-wide canvas): --x/--y/--w/--h for phones,
+       and --dx/--dy/--dw/--dh for laptops, where the scene is laid out wider and shorter -->
+  <header class="hero">
+    <div class="col hero-stage">
+      <img class="ly" src="./assets/art/stars.avif" style="--x:0;--y:462;--w:562;--h:357;--dy:371;--dh:425" alt="">
+      <img class="ly" src="./assets/art/stars-2.avif" style="--x:-48;--y:819;--w:658;--h:300;--dx:-55;--dy:796;--dw:672;--dh:432" alt="">
+      <img class="ly phone-only" src="./assets/art/stars-2.avif" style="--x:-48;--y:1119;--w:658;--h:300" alt="">
+
+      <img class="ly px" data-speed="-0.25" src="./assets/art/castle.webp" style="--x:28;--y:696;--w:308;--h:232;--dx:50;--dy:523;--dw:327;--dh:247" alt="">
+      <!-- the moon drifts down while scrolling and comes to rest on top of the ring (data-max: design units) -->
+      <img class="ly px" data-speed="0.08" data-max="33" src="./assets/art/moon.avif" style="--x:184;--y:721;--w:166;--h:174;--dx:230;--dy:642;--dw:285;--dh:298" alt="">
+      <img class="ly" src="./assets/art/hills.avif" style="--x:-60;--y:834;--w:682;--h:647;--dx:-35;--dy:755;--dw:633;--dh:600" alt="">
+      <img class="ly px contain" data-speed="-0.3" src="./assets/art/balloon.avif" style="--x:-26;--y:455;--w:367;--h:511;--dx:-68;--dy:324;--dw:500;--dh:530" alt="">
+
+      <img class="ly" src="./assets/art/tree-left.avif" style="--x:-413;--y:445;--w:743;--h:1078;--dx:-392;--dy:343;--dw:695;--dh:1009" alt="">
+      <img class="ly" src="./assets/art/tree-right.avif" style="--x:212;--y:330;--w:736;--h:1083;--dx:262;--dy:224;--dw:670;--dh:987" alt="">
+
+      <!-- Shiva and the border vines sit under the sky, so they emerge from beneath its curve in shadow -->
+      <img class="ly shiva" src="./assets/art/shiva.avif" style="--x:65;--y:276;--w:432;--h:343;--dy:199;--dh:342" alt="">
+      <img class="ly" src="./assets/art/border-left.avif" style="--x:0;--y:276;--w:72;--h:1136;--dy:199;--dw:64;--dh:1030" alt="">
+      <img class="ly" src="./assets/art/border-right.avif" style="--x:490;--y:276;--w:72;--h:1136;--dx:498;--dy:199;--dw:64;--dh:1030" alt="">
+
+      <!-- the sky above the arch, with the names (phones: the artwork; laptops: a panel with a wide, shallow curve) -->
+      <img class="ly sky" src="./assets/art/hero-top.avif" style="--x:0;--y:0;--w:562;--h:462" alt="">
+      <div class="sky-wide" aria-hidden="true"><div></div></div>
+      <div class="hero-names" id="heroNames">
+        <img class="monogram" src="./assets/art/monogram.webp" alt="S K monogram">
+        <h1 class="name" data-bind="groom.firstName"></h1>
+        <p class="weds">weds</p>
+        <h1 class="name" data-bind="bride.firstName"></h1>
+      </div>
+
+      <img class="ly" src="./assets/art/leaves.avif" style="--x:-57;--y:309;--w:250;--h:198;--dx:-103;--dy:191;--dw:384;--dh:304" alt="">
+      <img class="ly mirror" src="./assets/art/leaves.avif" style="--x:369;--y:309;--w:250;--h:198;--dx:290;--dy:191;--dw:384;--dh:304" alt="">
+      <img class="ly" src="./assets/art/big-leaves-right.avif" style="--x:430;--y:350;--w:278;--h:251;--dx:399;--dy:173;--dw:436;--dh:394" alt="">
+      <img class="ly" src="./assets/art/big-leaves-left.avif" style="--x:-146;--y:350;--w:278;--h:251;--dx:-252;--dy:173;--dw:436;--dh:394" alt="">
+
+      <img class="ly" src="./assets/art/paper-left.avif" style="--x:-26;--y:1170;--w:150;--h:182;--dy:1066;--dw:134;--dh:162" alt="">
+      <img class="ly" src="./assets/art/paper-right.avif" style="--x:438;--y:1170;--w:150;--h:182;--dx:454;--dy:1066;--dw:134;--dh:162" alt="">
+      <img class="ly" src="./assets/art/flower-strip.avif" style="--x:-414;--y:1263;--w:1391;--h:100;--dx:-319;--dy:1154;--dw:1192;--dh:86" alt="">
+      <img class="ly" src="./assets/art/ganesha-left.webp" style="--x:-22;--y:1151;--w:132;--h:199;--dx:-10;--dy:1068;--dw:105;--dh:158" alt="">
+      <img class="ly" src="./assets/art/ganesha-right.webp" style="--x:450;--y:1146;--w:136;--h:204;--dx:466;--dy:1069;--dw:105;--dh:157" alt="">
+      <img class="ly" src="./assets/art/om.avif" style="--x:228;--y:1239;--w:106;--h:118;--dx:217;--dy:1123;--dw:104;--dh:117" alt="">
+    </div>
+  </header>
+
+  <!-- ================= INVOCATION + EVENTS (teal damask) ================= -->
+  <main class="teal">
+    <section class="col invocation">
+      <img class="ly px contain" data-speed="-0.2" src="./assets/art/balloon.avif" style="--x:387;--y:-10;--w:345;--h:480" alt="">
+      <img class="ly" src="./assets/art/moon.avif" style="--x:-89;--y:165;--w:222;--h:233" alt="">
+      <p class="shloka reveal">ॐ श्री गणेशाय नमः</p>
+      <img class="ganesha-line reveal" src="./assets/art/ganesha-line.avif" alt="Shri Ganesh">
+
+      <p class="lead blessing reveal">With the heavenly blessings of</p>
+      <div class="names-list blessing reveal" id="blessingList"></div>
+      <p class="dash blessing reveal">————</p>
+      <div class="names-list blessing reveal" id="hostList"></div>
+
+      <!-- the castle floats in its own gap above INVITE so it never covers the text -->
+      <div class="castle-slot" aria-hidden="true">
+        <img class="ly" src="./assets/art/castle.webp" style="--x:392;--y:-10;--w:231;--h:174" alt="">
+      </div>
+      <h2 class="invite reveal">INVITE</h2>
+      <p class="lead reveal">You to join us in the wedding celebrations of</p>
+
+      <div class="couple reveal">
+        <h2 class="name" data-bind="groom.firstName"></h2>
+        <p class="amp">&amp;</p>
+        <h2 class="name" data-bind="bride.firstName"></h2>
+      </div>
+      <p class="small blessing reveal">Daughter of</p>
+      <p class="names-list blessing reveal" data-bind="bride.parents"></p>
+
+      <p class="lead following blessing reveal">On the following events</p>
+    </section>
+
+    <section class="col events" id="eventCards"></section>
+  </main>
+
+  <!-- ================= SEE THE ROUTE ================= -->
+  <section class="route teal">
+    <div class="col route-stage">
+      <a class="circle-link" id="routeLink" target="_blank" rel="noopener" aria-label="Open the venue in Google Maps">
+        <div class="ly scallop-wrap" style="--x:-199;--y:-18;--w:959;--h:959"><div class="scallop"></div></div>
+        <img class="ly window" src="./assets/art/event-5.avif" style="--x:238;--y:261;--w:86;--h:86" alt="">
+        <img class="ly" src="./assets/art/route-circle.avif" style="--x:-77;--y:104;--w:716;--h:716" alt="">
+        <div class="circle-text" style="--y:560">
+          <h2 class="big gold">See the<br>route</h2>
+          <p class="small cream">Click to open the map</p>
+          <img class="orn" src="./assets/art/orn-gold-1.avif" style="--w:88" alt="">
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= MEET THE BRIDE & GROOM (mint) ================= -->
+  <section class="mint">
+    <div class="col meet">
+      <div class="meet-text">
+        <img class="orn reveal" src="./assets/art/orn-blue-hearts.avif" style="--w:93" alt="">
+        <p class="kicker navy reveal">MEET THE</p>
+        <h2 class="big navy reveal">Bride &amp; Groom</h2>
+        <p class="note navy reveal" data-bind="coupleNote"></p>
+      </div>
+
+      <div class="meet-frame">
+        <div class="frame-stage">
+          <div class="slides ly" id="slides" style="--x:158;--y:294;--w:247;--h:314"></div>
+          <img class="ly" src="./assets/art/frame-blue.avif" style="--x:-184;--y:0;--w:931;--h:931" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RSVP ================= -->
+  <section class="rsvp">
+    <div class="col rsvp-stage">
+      <a class="circle-link" id="rsvpLink" target="_blank" rel="noopener" aria-label="RSVP">
+        <img class="ly" src="./assets/art/rsvp-outer.avif" style="--x:-199;--y:-18;--w:959;--h:959" alt="">
+        <img class="ly window" src="./assets/art/event-6.avif" style="--x:238;--y:261;--w:86;--h:86" alt="">
+        <img class="ly" src="./assets/art/rsvp-circle.avif" style="--x:-77;--y:104;--w:716;--h:716" alt="">
+        <div class="circle-text" style="--y:575">
+          <h2 class="big navy">Looking forward<br>to see you</h2>
+          <p class="small navy"><svg class="wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9.2 7.6l1.3 2.1-.9 1c.5 1.2 1.5 2.2 2.7 2.7l1-.9 2.1 1.3-.6 1.4c-.3.5-.9.8-1.5.6-2.8-.7-4.9-2.8-5.6-5.6-.2-.6.1-1.2.6-1.5z"/></svg>Click the link to RSVP</p>
+          <img class="orn" src="./assets/art/orn-blue-2.avif" style="--w:97" alt="">
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= THINGS TO KNOW (floral) ================= -->
+  <section class="floral">
+    <div class="col know">
+      <h2 class="big cream reveal">Things to know</h2>
+      <p class="note cream reveal">A few thoughtful details to help you feel at home and enjoy every moment of the celebrations.</p>
+      <img class="orn reveal" src="./assets/art/orn-gold-2.avif" style="--w:82" alt="">
+      <div id="otherItems"></div>
+    </div>
+  </section>
+
+  <!-- ================= FOLLOW THE ACTION ================= -->
+  <section class="insta">
+    <div class="col insta-stage">
+      <a class="circle-link" id="instaLink" target="_blank" rel="noopener" aria-label="Open Instagram">
+        <img class="ly" src="./assets/art/insta-outer.avif" style="--x:-201;--y:-30;--w:966;--h:1131" alt="">
+        <img class="ly window" src="./assets/art/event-4.avif" style="--x:228;--y:199;--w:109;--h:109" alt="">
+        <img class="ly" src="./assets/art/insta-circle.avif" style="--x:-171;--y:0;--w:906;--h:906" alt="">
+        <div class="circle-text" style="--y:520">
+          <h2 class="big cream">Follow the<br>action</h2>
+          <p class="small cream">Click the link to open Instagram</p>
+          <img class="orn" src="./assets/art/orn-gold-3.avif" style="--w:91" alt="">
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= COUNTDOWN (cream) ================= -->
+  <footer class="cream-bg">
+    <div class="col countdown">
+      <h2 class="big navy reveal">The countdown begins</h2>
+      <!-- flip clock: each card is filled and animated by initCountdown() in app.js -->
+      <div class="flip-clock reveal" id="clock" role="timer" aria-live="off">
+        <div class="flip-unit"><div class="flip" data-unit="days"></div><span class="flip-label navy">Days</span></div>
+        <div class="flip-unit"><div class="flip" data-unit="hours"></div><span class="flip-label navy">Hours</span></div>
+        <div class="flip-unit"><div class="flip" data-unit="mins"></div><span class="flip-label navy">Mins</span></div>
+        <div class="flip-unit"><div class="flip" data-unit="secs"></div><span class="flip-label navy">Secs</span></div>
+      </div>
+      <p class="note navy reveal"><span data-bind="hostFamily"></span> would be delighted by your presence as they celebrate one of the most special days of their lives.</p>
+      <a class="cal navy reveal" id="calBtn" target="_blank" rel="noopener">Add to calendar</a>
+      <p class="copy navy">&copy; Kartikayan &amp; Surbhi 2027</p>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

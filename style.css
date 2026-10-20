@@ -1,0 +1,501 @@
+/* ============================================================
+   Layout system
+   Every section is a full-width column that is also a CSS
+   container. --u is one "design unit": the column width / 562, so
+   artwork layers positioned in design units scale with the screen.
+   ============================================================ */
+:root {
+  --u: calc(100cqw / 562);
+  --tu: var(--u); /* unit for text and spacing around it; capped on laptops */
+  --col: 100vw; /* column fills the screen, so the borders sit on the screen edges */
+  --gold: #d6b56a;
+  --gold-soft: #d9c38c;
+  --cream: #efe3c6;
+  --navy: #1f3d63;
+  --teal: #16435f;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --caps: "Cormorant Unicase", "Cormorant Garamond", serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--teal);
+  color: var(--cream);
+  font-family: var(--serif);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; }
+a { color: inherit; }
+.hidden { display: none !important; }
+
+.col {
+  position: relative;
+  width: 100%;
+  max-width: var(--col);
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+/* Absolutely positioned artwork layer */
+.ly {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+.ly.contain { object-fit: contain; }
+.ly.mirror { transform: scaleX(-1); } /* not "flip": that is the countdown card class */
+/* photo peeking through a jewelled window in the circle artwork */
+.ly.window { border-radius: 50%; transform: scale(1.35); object-position: 50% 30%; background: #1f3d63; }
+.px { will-change: transform; }
+
+/* Placeholder text — anything inside [square brackets] in app.js */
+.ph { font-style: italic; border-bottom: 1px dashed currentColor; opacity: .8; }
+
+/* Type */
+.gold { color: var(--gold); }
+.cream { color: var(--cream); }
+.navy { color: var(--navy); }
+.big {
+  font-weight: 500;
+  font-size: calc(66 * var(--tu));
+  line-height: 1.02;
+}
+.small { font-size: max(16px, calc(19 * var(--tu))); }
+.kicker { font-family: var(--caps); font-size: max(17px, calc(24 * var(--tu))); letter-spacing: .25em; }
+.note {
+  font-size: max(17px, calc(20 * var(--tu)));
+  line-height: 1.45;
+  padding: 0 calc(40 * var(--tu));
+}
+.orn { width: calc(var(--w) * var(--tu)); height: auto; margin: calc(24 * var(--tu)) auto 0; }
+
+/* ============ HERO ============ */
+.hero {
+  overflow: hidden; /* clip here, not on the stage, so wide screens see the trees and flowers spill past the column */
+  background: #1d4a6d url("./assets/art/stars.avif") center top / 562px auto repeat;
+}
+.hero-stage { aspect-ratio: 562 / 1350; }
+/* the sky panel overlaps Shiva: deepen the shadow under its curve */
+.hero .sky { filter: drop-shadow(0 calc(12 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, .5)); }
+.sky-wide { display: none; }
+/* phones: drop Shiva so more of it shows below the sky's curve (laptops reset this further down) */
+.hero .shiva { transform: translateY(calc(70 * var(--u))); }
+.hero-names {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(2 * var(--u));
+  text-align: center;
+  color: var(--gold);
+  will-change: transform, opacity;
+}
+.hero-names .monogram {
+  height: calc(108 * var(--u));
+  width: auto;
+  margin: 0 auto calc(12 * var(--u));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .3));
+}
+.hero-names .name {
+  font-weight: 500;
+  font-size: calc(64 * var(--u));
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+}
+.hero-names .weds {
+  font-family: var(--caps);
+  font-size: calc(26 * var(--u));
+  letter-spacing: .08em;
+  margin: calc(2 * var(--u)) 0;
+}
+
+/* ============ TEAL DAMASK: invocation + events ============ */
+.teal {
+  overflow: hidden; /* artwork pokes past the column edge; don't let it widen the page on phones */
+  background: #16435f url("./assets/art/bg-teal.avif") center top / min(100vw, var(--col)) auto repeat;
+}
+.invocation {
+  text-align: center;
+  padding: calc(60 * var(--tu)) calc(30 * var(--tu)) 0;
+}
+.invocation > :not(.ly) { position: relative; z-index: 1; }
+.shloka { font-family: "Gotu", sans-serif; color: var(--gold); font-size: max(17px, calc(20 * var(--tu))); }
+.ganesha-line { width: calc(134 * var(--tu)); margin: calc(20 * var(--tu)) auto calc(70 * var(--tu)); }
+.lead { color: var(--gold-soft); font-size: max(18px, calc(23 * var(--tu))); }
+.names-list { color: var(--cream); font-size: max(17px, calc(21 * var(--tu))); margin-top: calc(8 * var(--tu)); }
+.names-list p + p { margin-top: calc(4 * var(--tu)); }
+/* blessings, both sets of parents, "Daughter of" and "On the following events": one size, all gold */
+.invocation .blessing { color: var(--gold); }
+.invocation .blessing:not(.dash) { font-size: max(19px, calc(23 * var(--tu))); }
+.nw { white-space: nowrap; }
+.dash { color: var(--gold-soft); margin: calc(22 * var(--tu)) 0 calc(14 * var(--tu)); letter-spacing: -.1em; }
+.castle-slot { position: relative; height: calc(115 * var(--u)); margin-top: calc(15 * var(--u)); }
+.invite {
+  font-weight: 400;
+  font-size: calc(112 * var(--tu));
+  letter-spacing: .04em;
+  line-height: 1;
+  color: var(--gold);
+  margin: calc(10 * var(--tu)) 0 calc(24 * var(--tu));
+}
+.couple { margin: calc(60 * var(--tu)) 0 calc(30 * var(--tu)); color: var(--gold); }
+.couple .name { font-weight: 500; font-size: calc(84 * var(--tu)); line-height: 1; }
+.couple .amp { font-size: calc(46 * var(--tu)); line-height: 1.3; }
+.following { margin-top: calc(40 * var(--tu)); }
+
+.events { padding: calc(30 * var(--u)) 0 calc(80 * var(--u)); }
+.event { text-align: center; padding-bottom: calc(70 * var(--u)); }
+.event-art { position: relative; height: calc(480 * var(--u)); }
+.event-frame {
+  position: absolute;
+  left: calc(146 * var(--u));
+  top: calc(47 * var(--u));
+  width: calc(272 * var(--u));
+  height: calc(397 * var(--u));
+  border: calc(3 * var(--u)) solid var(--gold);
+  border-radius: 999px;
+  box-shadow: 0 calc(20 * var(--u)) calc(40 * var(--u)) rgba(0, 0, 0, .45);
+}
+.event h3 { font-weight: 500; font-size: calc(58 * var(--u)); color: var(--gold); line-height: 1.05; }
+.event .info { margin-top: calc(10 * var(--u)); font-size: max(17px, calc(19 * var(--u))); color: var(--cream); line-height: 1.35; }
+.event .desc { margin: calc(8 * var(--u)) auto 0; max-width: calc(380 * var(--u)); font-style: italic; opacity: .8; font-size: max(16px, calc(17 * var(--u))); }
+.event .route-link {
+  display: inline-block;
+  margin-top: calc(14 * var(--u));
+  font-size: max(17px, calc(19 * var(--u)));
+  color: var(--gold);
+  text-underline-offset: 4px;
+}
+
+/* ============ CIRCLE CTAs (route / RSVP / Instagram) ============ */
+.route, .mint, .rsvp, .insta { overflow: hidden; }
+.route { position: relative; }
+.route::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50%;
+  background: #8fcbb6 url("./assets/art/bg-mint.avif") center top / min(100vw, var(--col)) auto repeat;
+}
+.route-stage { aspect-ratio: 562 / 950; z-index: 1; }
+/* scalloped mint ring behind "See the route" (pure CSS mask, no script needed) */
+.scallop-wrap { filter: drop-shadow(0 calc(10 * var(--u)) calc(12 * var(--u)) rgba(0, 0, 0, .35)); }
+.scallop {
+  width: 100%;
+  height: 100%;
+  background: #8fcbb6 url("./assets/art/bg-mint.avif") center / cover;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 959 959'%3E%3Ccircle cx='479.5' cy='479.5' r='461.5'/%3E%3Ccircle cx='941' cy='479.5' r='33'/%3E%3Ccircle cx='936.3' cy='545.2' r='33'/%3E%3Ccircle cx='922.3' cy='609.5' r='33'/%3E%3Ccircle cx='899.3' cy='671.2' r='33'/%3E%3Ccircle cx='867.7' cy='729' r='33'/%3E%3Ccircle cx='828.3' cy='781.7' r='33'/%3E%3Ccircle cx='781.7' cy='828.3' r='33'/%3E%3Ccircle cx='729' cy='867.7' r='33'/%3E%3Ccircle cx='671.2' cy='899.3' r='33'/%3E%3Ccircle cx='609.5' cy='922.3' r='33'/%3E%3Ccircle cx='545.2' cy='936.3' r='33'/%3E%3Ccircle cx='479.5' cy='941' r='33'/%3E%3Ccircle cx='413.8' cy='936.3' r='33'/%3E%3Ccircle cx='349.5' cy='922.3' r='33'/%3E%3Ccircle cx='287.8' cy='899.3' r='33'/%3E%3Ccircle cx='230' cy='867.7' r='33'/%3E%3Ccircle cx='177.3' cy='828.3' r='33'/%3E%3Ccircle cx='130.7' cy='781.7' r='33'/%3E%3Ccircle cx='91.3' cy='729' r='33'/%3E%3Ccircle cx='59.7' cy='671.2' r='33'/%3E%3Ccircle cx='36.7' cy='609.5' r='33'/%3E%3Ccircle cx='22.7' cy='545.2' r='33'/%3E%3Ccircle cx='18' cy='479.5' r='33'/%3E%3Ccircle cx='22.7' cy='413.8' r='33'/%3E%3Ccircle cx='36.7' cy='349.5' r='33'/%3E%3Ccircle cx='59.7' cy='287.8' r='33'/%3E%3Ccircle cx='91.3' cy='230' r='33'/%3E%3Ccircle cx='130.7' cy='177.3' r='33'/%3E%3Ccircle cx='177.3' cy='130.7' r='33'/%3E%3Ccircle cx='230' cy='91.3' r='33'/%3E%3Ccircle cx='287.8' cy='59.7' r='33'/%3E%3Ccircle cx='349.5' cy='36.7' r='33'/%3E%3Ccircle cx='413.8' cy='22.7' r='33'/%3E%3Ccircle cx='479.5' cy='18' r='33'/%3E%3Ccircle cx='545.2' cy='22.7' r='33'/%3E%3Ccircle cx='609.5' cy='36.7' r='33'/%3E%3Ccircle cx='671.2' cy='59.7' r='33'/%3E%3Ccircle cx='729' cy='91.3' r='33'/%3E%3Ccircle cx='781.7' cy='130.7' r='33'/%3E%3Ccircle cx='828.3' cy='177.3' r='33'/%3E%3Ccircle cx='867.7' cy='230' r='33'/%3E%3Ccircle cx='899.3' cy='287.8' r='33'/%3E%3Ccircle cx='922.3' cy='349.5' r='33'/%3E%3Ccircle cx='936.3' cy='413.8' r='33'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 959 959'%3E%3Ccircle cx='479.5' cy='479.5' r='461.5'/%3E%3Ccircle cx='941' cy='479.5' r='33'/%3E%3Ccircle cx='936.3' cy='545.2' r='33'/%3E%3Ccircle cx='922.3' cy='609.5' r='33'/%3E%3Ccircle cx='899.3' cy='671.2' r='33'/%3E%3Ccircle cx='867.7' cy='729' r='33'/%3E%3Ccircle cx='828.3' cy='781.7' r='33'/%3E%3Ccircle cx='781.7' cy='828.3' r='33'/%3E%3Ccircle cx='729' cy='867.7' r='33'/%3E%3Ccircle cx='671.2' cy='899.3' r='33'/%3E%3Ccircle cx='609.5' cy='922.3' r='33'/%3E%3Ccircle cx='545.2' cy='936.3' r='33'/%3E%3Ccircle cx='479.5' cy='941' r='33'/%3E%3Ccircle cx='413.8' cy='936.3' r='33'/%3E%3Ccircle cx='349.5' cy='922.3' r='33'/%3E%3Ccircle cx='287.8' cy='899.3' r='33'/%3E%3Ccircle cx='230' cy='867.7' r='33'/%3E%3Ccircle cx='177.3' cy='828.3' r='33'/%3E%3Ccircle cx='130.7' cy='781.7' r='33'/%3E%3Ccircle cx='91.3' cy='729' r='33'/%3E%3Ccircle cx='59.7' cy='671.2' r='33'/%3E%3Ccircle cx='36.7' cy='609.5' r='33'/%3E%3Ccircle cx='22.7' cy='545.2' r='33'/%3E%3Ccircle cx='18' cy='479.5' r='33'/%3E%3Ccircle cx='22.7' cy='413.8' r='33'/%3E%3Ccircle cx='36.7' cy='349.5' r='33'/%3E%3Ccircle cx='59.7' cy='287.8' r='33'/%3E%3Ccircle cx='91.3' cy='230' r='33'/%3E%3Ccircle cx='130.7' cy='177.3' r='33'/%3E%3Ccircle cx='177.3' cy='130.7' r='33'/%3E%3Ccircle cx='230' cy='91.3' r='33'/%3E%3Ccircle cx='287.8' cy='59.7' r='33'/%3E%3Ccircle cx='349.5' cy='36.7' r='33'/%3E%3Ccircle cx='413.8' cy='22.7' r='33'/%3E%3Ccircle cx='479.5' cy='18' r='33'/%3E%3Ccircle cx='545.2' cy='22.7' r='33'/%3E%3Ccircle cx='609.5' cy='36.7' r='33'/%3E%3Ccircle cx='671.2' cy='59.7' r='33'/%3E%3Ccircle cx='729' cy='91.3' r='33'/%3E%3Ccircle cx='781.7' cy='130.7' r='33'/%3E%3Ccircle cx='828.3' cy='177.3' r='33'/%3E%3Ccircle cx='867.7' cy='230' r='33'/%3E%3Ccircle cx='899.3' cy='287.8' r='33'/%3E%3Ccircle cx='922.3' cy='349.5' r='33'/%3E%3Ccircle cx='936.3' cy='413.8' r='33'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+.circle-link { display: block; position: absolute; inset: 0; text-decoration: none; }
+.circle-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--y) * var(--u));
+  transform: translateY(-50%);
+  text-align: center;
+}
+.circle-text .small { margin-top: calc(12 * var(--u)); }
+/* small WhatsApp mark beside the RSVP prompt */
+.wa {
+  width: 1.3em;
+  height: 1.3em;
+  vertical-align: -0.3em;
+  margin-right: .3em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+/* ============ MEET THE BRIDE & GROOM (mint) ============ */
+.mint {
+  background: #8fcbb6 url("./assets/art/bg-mint.avif") center top / min(100vw, var(--col)) auto repeat;
+}
+.meet { text-align: center; padding-top: calc(40 * var(--tu)); }
+.meet .kicker { margin-top: calc(40 * var(--tu)); }
+.meet .big { font-size: calc(80 * var(--tu)); }
+.meet .note { margin-top: calc(28 * var(--tu)); }
+.frame-stage { position: relative; height: calc(931 * var(--u)); margin-top: calc(40 * var(--u)); }
+.slides { border-radius: 50%; overflow: hidden; background: #1f3d63; }
+.slides img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s ease, transform 6s ease;
+}
+.slides img.on { opacity: 1; transform: scale(1); }
+
+/* ============ RSVP — circle straddles mint and floral ============ */
+.rsvp { position: relative; background: #2a2748 url("./assets/art/bg-floral.avif") center / min(100vw, var(--col)) auto repeat; }
+.rsvp::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 48%;
+  background: #8fcbb6 url("./assets/art/bg-mint.avif") center bottom / min(100vw, var(--col)) auto repeat;
+}
+.rsvp-stage { aspect-ratio: 562 / 950; }
+
+/* ============ THINGS TO KNOW (floral) ============ */
+.floral { background: #2a2748 url("./assets/art/bg-floral.avif") center / min(100vw, var(--col)) auto repeat; }
+.know { text-align: center; padding: calc(30 * var(--tu)) 0 calc(60 * var(--tu)); }
+.know .note { margin-top: calc(18 * var(--tu)); }
+.know-item { margin-top: calc(70 * var(--tu)); padding: 0 calc(60 * var(--tu)); }
+.know-item .icon { width: calc(119 * var(--tu)); height: calc(119 * var(--tu)); margin: 0 auto calc(10 * var(--tu)); object-fit: contain; }
+.know-item .icon.wide { width: calc(190 * var(--tu)); } /* the R.S.V.P. lettering is wider than the square icons */
+.know-item h3 { font-weight: 500; font-size: calc(56 * var(--tu)); color: var(--cream); line-height: 1.1; }
+.know-item p, .know-item .contacts { margin-top: calc(10 * var(--tu)); font-size: max(17px, calc(19 * var(--tu))); color: var(--cream); line-height: 1.4; }
+.know-item .contacts { display: grid; gap: calc(6 * var(--tu)); }
+.know-item a { text-underline-offset: 3px; }
+
+/* ============ FOLLOW THE ACTION ============ */
+.insta { position: relative; background: #f3e3a6 url("./assets/art/bg-cream.avif") center / min(100vw, var(--col)) auto repeat; }
+.insta::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 30%;
+  background: #2a2748 url("./assets/art/bg-floral.avif") center bottom / min(100vw, var(--col)) auto repeat;
+}
+.insta-stage { aspect-ratio: 562 / 1000; }
+
+/* ============ COUNTDOWN (cream) ============ */
+.cream-bg { background: #f3e3a6 url("./assets/art/bg-cream.avif") center / min(100vw, var(--col)) auto repeat; }
+.countdown .big { font-size: calc(54 * var(--tu)); }
+.countdown { text-align: center; padding: calc(20 * var(--tu)) 0 calc(120 * var(--tu)); }
+/* Flip clock: navy cards with gold digits. Each card stacks four half-height
+   leaves: the static top (new number) and bottom (old number), and two flaps
+   that fold down over them when the number changes. */
+.flip-clock {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: calc(14 * var(--tu));
+  margin: calc(28 * var(--tu)) auto calc(30 * var(--tu));
+}
+.flip-unit { display: flex; flex-direction: column; align-items: center; gap: calc(10 * var(--tu)); }
+.flip-label { font-family: var(--caps); font-size: max(14px, calc(15 * var(--tu))); letter-spacing: .1em; }
+.flip {
+  --n: 2; /* digits shown; days can need 3 */
+  position: relative;
+  width: calc(var(--n) * .56em + .5em);
+  height: 1.5em;
+  font-size: calc(64 * var(--tu));
+  font-weight: 500;
+  color: var(--gold);
+  font-variant-numeric: lining-nums tabular-nums;
+  perspective: 4em;
+  border-radius: .12em;
+  box-shadow: 0 .08em .22em rgba(16, 32, 54, .35);
+}
+.flip::after { /* the hinge */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: max(1px, .02em);
+  background: rgba(0, 0, 0, .45);
+  z-index: 3;
+}
+.leaf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: #1f3d63;
+}
+.leaf b { display: block; height: 200%; line-height: 1.5em; font-weight: inherit; text-align: center; }
+.upper, .flap-top { top: 0; border-radius: .12em .12em 0 0; background: linear-gradient(#2a4f7c, #1f3d63); }
+.lower, .flap-bottom { bottom: 0; border-radius: 0 0 .12em .12em; background: linear-gradient(#1a3557, #15304f); }
+.lower b, .flap-bottom b { transform: translateY(-50%); }
+.flap-top { z-index: 2; transform-origin: bottom; backface-visibility: hidden; }
+.flap-bottom { z-index: 2; transform-origin: top; transform: rotateX(90deg); backface-visibility: hidden; }
+.flip.flipping .flap-top { animation: flip-top .28s ease-in forwards; }
+.flip.flipping .flap-bottom { animation: flip-bottom .28s ease-out .28s forwards; }
+@keyframes flip-top { to { transform: rotateX(-90deg); } }
+@keyframes flip-bottom { to { transform: rotateX(0deg); } }
+.cal {
+  display: inline-block;
+  margin-top: calc(26 * var(--tu));
+  font-size: max(17px, calc(19 * var(--tu)));
+  text-underline-offset: 4px;
+}
+.copy { margin-top: calc(50 * var(--tu)); font-size: max(14px, calc(14 * var(--tu))); opacity: .6; }
+
+/* ============ Scroll prompt ============ */
+.scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: calc(22px + env(safe-area-inset-bottom));
+  z-index: 40;
+  transform: translate(-50%, 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 20px 8px;
+  border-radius: 999px;
+  background: rgba(16, 45, 70, .72);
+  border: 1px solid rgba(214, 181, 106, .6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: var(--gold);
+  font-family: var(--caps);
+  font-size: 15px;
+  letter-spacing: .18em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s ease, transform .6s ease;
+}
+.scroll-cue.show { opacity: 1; transform: translate(-50%, 0); }
+.scroll-cue svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; animation: nudge 1.6s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); opacity: .6; } 50% { transform: translateY(4px); opacity: 1; } }
+
+/* ============ Music button ============ */
+.music { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 50; }
+.music button {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: rgba(22, 67, 95, .85);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
+}
+.music svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.music .pulse { position: absolute; inset: -2px; border-radius: 50%; border: 1px solid var(--gold); animation: ping 2s ease-out infinite; }
+@keyframes ping { to { transform: scale(1.6); opacity: 0; } }
+
+/* ============ Reveal on scroll ============ */
+/* Only hide content when scripts run (html.js), so previews that block scripts still show everything */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform .9s cubic-bezier(.22, 1, .36, 1);
+}
+html.js .reveal.in-view { opacity: 1; transform: none; }
+html:not(.js) .flip-clock, html:not(.js) .music { display: none; }
+.reveal-init { opacity: 0; transform: scale(.8); transition: opacity .5s ease-out 1s, transform .5s ease-out 1s; }
+.reveal-init.in-view { opacity: 1; transform: scale(1); }
+
+/* ============ Desktop / laptop ============
+   Every section fills the screen width and its artwork scales with it, laid
+   out like the phone design but wider: the opening scene is shorter (layers
+   use their --dx/--dy/--dw/--dh positions), events sit two to a row, and
+   things to know form a 2 x 2 grid. Text uses --tu, the design unit capped
+   so type stays a comfortable reading size on big screens. */
+@media (min-width: 1000px) {
+  :root { --tu: min(var(--u), .11vw); }
+
+  /* ---- opening scene ---- */
+  .hero-stage { aspect-ratio: 562 / 1229; }
+  .hero .ly {
+    left: calc(var(--dx, var(--x)) * var(--u));
+    top: calc(var(--dy, var(--y)) * var(--u));
+    width: calc(var(--dw, var(--w)) * var(--u));
+    height: calc(var(--dh, var(--h)) * var(--u));
+  }
+  .hero .sky, .hero .phone-only { display: none; }
+  .hero .shiva { transform: none; }
+  /* the sky: a full-width panel whose bottom edge is a wide, shallow arc
+     (a circle of radius 1058 units, dipping 38 units from the middle to the edges) */
+  .sky-wide {
+    --arc: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%);
+    --rim: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%, #000 100.2%, transparent 100.2%);
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(275 * var(--u));
+    filter: drop-shadow(0 calc(10 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, .55));
+    pointer-events: none;
+  }
+  .sky-wide > div {
+    height: 100%;
+    /* 35% down the artwork: a patch of sky with no big stars behind the names */
+    background: #1d4a6d url("./assets/art/hero-top.avif") center 35% / 100% auto no-repeat;
+    -webkit-mask: var(--arc);
+    mask: var(--arc);
+  }
+  /* thin pale rim along the curve, like the edge of cut paper */
+  .sky-wide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(226, 214, 176, .7);
+    -webkit-mask: var(--rim);
+    mask: var(--rim);
+  }
+  .hero-names { z-index: 2; top: calc(14 * var(--u)); }
+  .hero-names .monogram { height: calc(62 * var(--u)); margin-bottom: calc(6 * var(--u)); }
+  .hero-names .name { font-size: calc(46 * var(--u)); }
+  .hero-names .weds { font-size: calc(22 * var(--u)); }
+
+  /* ---- events: two to a row ---- */
+  .events {
+    max-width: none;
+    width: 82vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: calc(20 * var(--tu)) 0 calc(80 * var(--tu));
+  }
+  /* each card is its own container; its 562-unit artwork is a little wider
+     than the card, centred over it */
+  .event { container-type: inline-size; flex: 0 0 41vw; --u: calc(100cqw / 445); padding-bottom: 40px; }
+  .event-art { width: calc(562 * var(--u)); margin-left: calc(50% - 281 * var(--u)); }
+  .event .info, .event .route-link { font-size: max(20px, calc(19 * var(--u))); }
+  .event .desc { font-size: max(18px, calc(17 * var(--u))); }
+
+  /* ---- circle call-to-actions ---- */
+  .route-stage, .rsvp-stage, .insta-stage { max-width: 53vw; }
+
+  /* ---- bride & groom: text above the frame ---- */
+  .meet-text { max-width: 60vw; margin: 0 auto; }
+  .meet-frame { container-type: inline-size; width: 50vw; margin: 0 auto; }
+
+  /* ---- things to know: 2 x 2 ---- */
+  #otherItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min(100%, 56vw);
+    margin: calc(40 * var(--tu)) auto 0;
+    gap: calc(50 * var(--tu)) calc(40 * var(--tu));
+  }
+  .know-item { margin-top: 0; padding: 0; }
+  .know-item .icon { width: calc(80 * var(--tu)); height: calc(80 * var(--tu)); }
+  .know-item .icon.wide { width: calc(128 * var(--tu)); }
+  .know-item p, .know-item .contacts { font-size: max(20px, calc(19 * var(--tu))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html.js .reveal { opacity: 1; transform: none; }
+}
