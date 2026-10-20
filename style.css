@@ -81,30 +81,33 @@ a { color: inherit; }
   overflow: hidden; /* clip here, not on the stage, so wide screens see the trees and flowers spill past the column */
   background: #1d4a6d url("./assets/art/stars.avif") center top / 562px auto repeat;
 }
-/* phones: a tall sky, so the first screen holds just the names and Shiva */
-.hero-stage { aspect-ratio: 562 / 2030; }
-/* The sky with the names: a full-width panel whose bottom edge is an arc
-   (a circle of radius --arc-r units centred --arc-cy units down). Phones get
-   a tall panel with a deeper curve; laptops override the numbers. */
+/* Phones: the opening (sky artwork with its arched cut-out, names, Shiva and
+   the vines) is drawn 1.4x larger than the rest of the scene, so it fills the
+   first screen; its sides spill past the screen edges. */
+.hero-stage { aspect-ratio: 562 / 1800; }
+/* the sky artwork overlaps Shiva: deepen the shadow under its arch */
+.hero .sky { filter: drop-shadow(0 calc(12 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, .5)); }
+
+/* Laptops: the sky with the names is a full-width panel whose bottom edge is a
+   wide, shallow arc (a circle of radius 1058 units, dipping 38 units from the
+   middle to the edges). */
 .sky-wide {
-  --sky-h: 840;
-  --arc-r: 484;
-  --arc-cy: 1224;
-  --arc: radial-gradient(circle calc(var(--arc-r) * var(--u)) at 50% calc(var(--arc-cy) * var(--u)), transparent 100%, #000 100%);
-  --rim: radial-gradient(circle calc(var(--arc-r) * var(--u)) at 50% calc(var(--arc-cy) * var(--u)), transparent 100%, #000 100%, #000 100.25%, transparent 100.25%);
+  --arc: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%);
+  --rim: radial-gradient(circle calc(1058 * var(--u)) at 50% calc(1283 * var(--u)), transparent 100%, #000 100%, #000 100.2%, transparent 100.2%);
+  display: none;
   position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(var(--sky-h) * var(--u));
+  height: calc(275 * var(--u));
   filter: drop-shadow(0 calc(10 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, .55));
   pointer-events: none;
 }
 .sky-wide > div {
   height: 100%;
-  /* only the starry top of the artwork, never its own curved cut-out */
-  background: #1d4a6d url("./assets/art/hero-top.avif") center top / calc(1300 * var(--u)) auto no-repeat;
+  /* 35% down the artwork: a patch of sky with no big stars behind the names */
+  background: #1d4a6d url("./assets/art/hero-top.avif") center 35% / 100% auto no-repeat;
   -webkit-mask: var(--arc);
   mask: var(--arc);
 }
@@ -116,35 +119,36 @@ a { color: inherit; }
   background: rgba(226, 214, 176, .7);
   -webkit-mask: var(--rim);
   mask: var(--rim);
-}.hero-names {
+}
+
+.hero-names {
   position: absolute;
   z-index: 2;
   left: 0;
   right: 0;
-  top: calc(200 * var(--u));
+  top: calc(3 * var(--u));
   text-align: center;
   color: var(--gold);
   will-change: transform, opacity;
 }
 .hero-names .monogram {
-  height: calc(140 * var(--u));
+  height: calc(151 * var(--u));
   width: auto;
-  margin: 0 auto calc(12 * var(--u));
+  margin: 0 auto calc(14 * var(--u));
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .3));
 }
 .hero-names .name {
   font-weight: 500;
-  font-size: calc(92 * var(--u));
+  font-size: calc(90 * var(--u));
   line-height: 1;
   text-shadow: 0 2px 10px rgba(0, 0, 0, .25);
 }
 .hero-names .weds {
   font-family: var(--caps);
-  font-size: calc(26 * var(--u));
+  font-size: calc(36 * var(--u));
   letter-spacing: .08em;
-  margin: calc(2 * var(--u)) 0;
+  margin: calc(3 * var(--u)) 0;
 }
-
 /* ============ TEAL DAMASK: invocation + events ============ */
 .teal {
   overflow: hidden; /* artwork pokes past the column edge; don't let it widen the page on phones */
@@ -452,8 +456,7 @@ html:not(.js) .flip-clock, html:not(.js) .music { display: none; }
   }
   .hero .phone-only { display: none; }
   /* the sky: a wide, shallow arc (a circle of radius 1058 units, dipping 38 units from the middle to the edges) */
-  .sky-wide { --sky-h: 275; --arc-r: 1058; --arc-cy: 1283; }
-  .sky-wide > div { background-position: center 35%; background-size: 100% auto; }
+  .sky-wide { display: block; }
   .hero-names { top: calc(14 * var(--u)); }
   .hero-names .monogram { height: calc(62 * var(--u)); margin-bottom: calc(6 * var(--u)); }
   .hero-names .name { font-size: calc(46 * var(--u)); }
