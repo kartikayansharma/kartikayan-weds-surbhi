@@ -239,6 +239,29 @@ a { color: inherit; }
   text-align: center;
 }
 .circle-text .small { margin-top: calc(12 * var(--u)); }
+/* RSVP: bolder prompt + accept / decline buttons */
+.circle-text .rsvp-prompt { font-weight: 700; font-size: max(17px, calc(22 * var(--tu))); }
+.rsvp-btns {
+  display: flex;
+  justify-content: center;
+  gap: calc(14 * var(--u));
+  margin: calc(16 * var(--u)) 0 calc(6 * var(--u));
+}
+.rsvp-btn {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: max(15px, calc(18 * var(--tu)));
+  padding: .45em 1.1em;
+  border-radius: 999px;
+  border: 2px solid var(--navy);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+.rsvp-btn.yes { background: var(--navy); color: var(--cream); }
+.rsvp-btn.no { background: transparent; color: var(--navy); }
+.rsvp-btn:hover, .rsvp-btn:focus-visible { transform: translateY(-1px); }
+.rsvp-btn.no:hover, .rsvp-btn.no:focus-visible { background: var(--navy); color: var(--cream); }
 /* small WhatsApp mark beside the RSVP prompt */
 .wa {
   width: 1.3em;

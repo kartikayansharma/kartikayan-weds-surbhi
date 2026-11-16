@@ -11,13 +11,13 @@ const WEDDING_DETAILS = {
   hosts: ["Mrs. Anita Vashist & Mr. Sushil Kumar Sharma"],
   hostFamily: "The Sharma family",
   weddingDate: "2027-02-20T18:30:00+05:30", // countdown target (pheras)
-  calendar: { title: "Kartikayan & Surbhi's Wedding", start: "2027-02-19T17:00:00+05:30", end: "2027-02-20T23:30:00+05:30" },
+  calendar: { title: "Kartikayan & Surbhi's Wedding", start: "2027-02-19T13:00:00+05:30", end: "2027-02-20T23:30:00+05:30" },
   venue: {
     name: "La Perle River Resort",
     address: "Village Ladhuachaur, P.O. Dhikuli, Ramnagar, Nainital, Uttarakhand 244715",
     mapLink: "https://www.google.com/maps/search/?api=1&query=La+Perle+River+Resort+Jim+Corbett+Ramnagar"
   },
-  hashtag: "#KartikGotSurPrized",
+  hashtag: "#Kartik_Got_Surprised",
   coupleNote: "Childhood friends and now, forever partners. We are so happy that you will be celebrating with us in Jim Corbett. Your love and blessings mean the world to us, and we can't wait to see you at the celebrations.",
   // Photos shown inside the blue frame (swap in your own pre-wedding photos)
   couplePhotos: ["./assets/art/event-6.avif", "./assets/art/event-3.avif", "./assets/art/event-4.avif"],
@@ -26,33 +26,32 @@ const WEDDING_DETAILS = {
   instagram: "", // e.g. "https://instagram.com/yourhandle" — if empty, opens the hashtag page
   rsvpLink: "",  // e.g. a Google Form. If empty, RSVP opens WhatsApp to the first contact.
   rsvp: [
-    { name: "Kartikayan Sharma", phone: "+919968431431", display: "Kartikayan Sharma | +91 99684 31431" },
-    { name: "Surbhi Jain", phone: "+919599230648", display: "Surbhi Jain | +91 95992 30648" }
+    { name: "Kartikayan Sharma", phone: "+919968431431", display: "Kartikayan Sharma | +91 99684 31431" }
   ],
   events: [
+    {
+      title: "Haldi",
+      image: "./assets/art/event-2.avif",
+      date: "Friday, Feb 19th 2027",
+      time: "1:00 PM Onwards",
+      venue: "La Perle River Resort, Jim Corbett",
+      description: "Blessing the couple with turmeric paste.",
+    },
     {
       title: "Engagement & Sangeet",
       image: "./assets/art/event-4.avif",
       date: "Friday, Feb 19th 2027",
-      time: "5:00 PM Onwards",
+      time: "6:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "Sangeet from 5 PM, and engagement at 7 PM.",
-    },
-    {
-      title: "Haldi",
-      image: "./assets/art/event-2.avif",
-      date: "Saturday, Feb 20th 2027",
-      time: "9:00 AM Onwards",
-      venue: "La Perle River Resort, Jim Corbett",
-      description: "Blessing the couple with turmeric paste, followed by bridal & groom prep.",
+      description: "An evening of engagement and sangeet celebrations, from 6 PM onwards.",
     },
     {
       title: "Baraat & Pheras",
       image: "./assets/art/event-5.avif",
       date: "Saturday, Feb 20th 2027",
-      time: "2:00 PM Onwards",
+      time: "1:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "Baraat at 2 PM, varmala at 4 PM, sacred pheras at 6:30 PM, followed by wedding dinner.",
+      description: "Baraat at 1 PM, varmala at 4 PM, sacred pheras at 6:30 PM, followed by wedding dinner.",
     }
   ],
 };
@@ -91,8 +90,11 @@ function renderText() {
 
   $("#routeLink").href = d.venue.mapLink;
 
-  const msg = `Hi! Confirming my attendance for ${d.groom.firstName} & ${d.bride.firstName}'s wedding.`;
-  $("#rsvpLink").href = d.rsvpLink || `https://wa.me/${d.rsvp[0].phone.replace(/\D/g, "")}?text=${encodeURIComponent(msg)}`;
+  // RSVP: one button to accept, one to decline — each opens WhatsApp with a ready message
+  const pair = `${d.groom.firstName} & ${d.bride.firstName}`;
+  const wa = (text) => `https://wa.me/${d.rsvp[0].phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+  $("#rsvpYes").href = d.rsvpLink || wa(`Hi! I'm happy to confirm that I will be attending ${pair}'s wedding.`);
+  $("#rsvpNo").href = d.rsvpLink || wa(`Hi! Sadly I won't be able to attend ${pair}'s wedding. Sending my love and blessings.`);
 
   $("#instaLink").href = d.instagram || `https://www.instagram.com/explore/tags/${d.hashtag.replace("#", "")}/`;
 

@@ -9,13 +9,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500&family=Gotu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Unicase:wght@400;500&family=Gotu&display=swap" rel="stylesheet">
 
   <!-- marks that scripts run, so entrance animations only hide content when they can also reveal it;
        "gated" holds the page behind the opening screen until the guest taps it -->
   <script>document.documentElement.classList.add("js", "gated");</script>
   <!-- ?v= changes with each update, so browsers never keep an old copy -->
-  <link rel="stylesheet" href="./style.css?v=4">
+  <link rel="stylesheet" href="./style.css?v=5">
 </head>
 <body>
 
@@ -165,16 +165,20 @@
   <!-- ================= RSVP ================= -->
   <section class="rsvp">
     <div class="col rsvp-stage">
-      <a class="circle-link" id="rsvpLink" target="_blank" rel="noopener" aria-label="RSVP">
+      <div class="circle-link">
         <img class="ly" src="./assets/art/rsvp-outer.avif" style="--x:-199;--y:-18;--w:959;--h:959" alt="">
         <img class="ly window" src="./assets/art/event-6.avif" style="--x:238;--y:261;--w:86;--h:86" alt="">
         <img class="ly" src="./assets/art/rsvp-circle.avif" style="--x:-77;--y:104;--w:716;--h:716" alt="">
         <div class="circle-text" style="--y:575">
           <h2 class="big navy">Looking forward<br>to see you</h2>
-          <p class="small navy"><svg class="wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9.2 7.6l1.3 2.1-.9 1c.5 1.2 1.5 2.2 2.7 2.7l1-.9 2.1 1.3-.6 1.4c-.3.5-.9.8-1.5.6-2.8-.7-4.9-2.8-5.6-5.6-.2-.6.1-1.2.6-1.5z"/></svg>Click the link to RSVP</p>
+          <p class="small navy rsvp-prompt"><svg class="wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9.2 7.6l1.3 2.1-.9 1c.5 1.2 1.5 2.2 2.7 2.7l1-.9 2.1 1.3-.6 1.4c-.3.5-.9.8-1.5.6-2.8-.7-4.9-2.8-5.6-5.6-.2-.6.1-1.2.6-1.5z"/></svg>Click below to RSVP</p>
+          <div class="rsvp-btns">
+            <a class="rsvp-btn yes" id="rsvpYes" target="_blank" rel="noopener">Will attend</a>
+            <a class="rsvp-btn no" id="rsvpNo" target="_blank" rel="noopener">Can't attend</a>
+          </div>
           <img class="orn" src="./assets/art/orn-blue-2.avif" style="--w:97" alt="">
         </div>
-      </a>
+      </div>
     </div>
   </section>
 
@@ -221,6 +225,6 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=4"></script>
+  <script src="./app.js?v=5"></script>
 </body>
 </html>
