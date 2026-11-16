@@ -5,10 +5,10 @@
 // page with a dashed underline so it's easy to spot and replace.
 // ============================================================
 const WEDDING_DETAILS = {
-  groom: { firstName: "Kartikayan", fullName: "Kartikayan Sharma", parents: "Mrs. Anita Vashist & Mr. Sushil Kumar Sharma" },
+  groom: { firstName: "Kartikayan", fullName: "Kartikayan Sharma", parents: "Mrs. Anita Sharma & Mr. Sushil Kumar Sharma" },
   bride: { firstName: "Surbhi", fullName: "Surbhi Jain", parents: "Mrs. Indu Jain & Mr. Mukesh Jain" },
   blessings: ["Late Smt. Rama Devi & Late Shri Ramesh Chandra Sharma"],
-  hosts: ["Mrs. Anita Vashist & Mr. Sushil Kumar Sharma"],
+  hosts: ["Mrs. Anita Sharma & Mr. Sushil Kumar Sharma"],
   hostFamily: "The Sharma family",
   weddingDate: "2027-02-20T18:30:00+05:30", // countdown target (pheras)
   calendar: { title: "Kartikayan & Surbhi's Wedding", start: "2027-02-19T13:00:00+05:30", end: "2027-02-20T23:30:00+05:30" },
