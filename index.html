@@ -15,7 +15,7 @@
        "gated" holds the page behind the opening screen until the guest taps it -->
   <script>document.documentElement.classList.add("js", /[?&]pdf\b/.test(location.search) ? "pdf" : "gated");</script>
   <!-- ?v= changes with each update, so browsers never keep an old copy -->
-  <link rel="stylesheet" href="./style.css?v=8">
+  <link rel="stylesheet" href="./style.css?v=9">
 </head>
 <body>
 
@@ -40,6 +40,25 @@
     </button>
   </div>
 
+  <!-- Floating index: jump to any section (sits above the music button) -->
+  <nav class="toc reveal-init" id="toc" aria-label="Sections">
+    <ul class="toc-list" id="tocList" hidden>
+      <li><a href="#top">Home</a></li>
+      <li><a href="#invitation">Invitation</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#route">See the route</a></li>
+      <li><a href="#couple">Kartikayan &amp; Surbhi</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#know">Things to know</a></li>
+      <li><a href="#follow">Follow the action</a></li>
+      <li><a href="#countdown">Countdown</a></li>
+    </ul>
+    <button class="toc-btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="tocList" aria-label="Jump to a section">
+      <svg class="i-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r=".6"/><circle cx="4" cy="12" r=".6"/><circle cx="4" cy="18" r=".6"/></svg>
+      <svg class="i-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </nav>
+
   <!-- Scroll prompt: shown on first load, fades once the guest starts scrolling -->
   <div class="scroll-cue" id="scrollCue" aria-hidden="true">
     <span>Scroll down</span>
@@ -49,7 +68,7 @@
   <!-- ================= HERO ================= -->
   <!-- Layer positions are in design units (a 562-unit-wide canvas): --x/--y/--w/--h for phones,
        and --dx/--dy/--dw/--dh for laptops, where the scene is laid out wider and shorter -->
-  <header class="hero">
+  <header class="hero" id="top">
     <div class="col hero-stage">
       <img class="ly" src="./assets/art/stars.avif" style="--x:0;--y:912;--w:562;--h:357;--dy:371;--dh:425" alt="">
       <img class="ly" src="./assets/art/stars-2.avif" style="--x:-48;--y:1269;--w:658;--h:300;--dx:-55;--dy:796;--dw:672;--dh:432" alt="">
@@ -95,7 +114,7 @@
 
   <!-- ================= INVOCATION + EVENTS (teal damask) ================= -->
   <main class="teal">
-    <section class="col invocation">
+    <section class="col invocation" id="invitation">
       <img class="ly px contain" data-speed="-0.2" src="./assets/art/balloon.avif" style="--x:387;--y:-10;--w:345;--h:480" alt="">
       <img class="ly" src="./assets/art/moon.avif" style="--x:-89;--y:165;--w:222;--h:233" alt="">
       <p class="shloka reveal">ॐ श्री गणेशाय नमः</p>
@@ -124,11 +143,12 @@
       <p class="lead following blessing reveal">On the following events</p>
     </section>
 
+    <span class="anchor" id="events"></span>
     <section class="col events" id="eventCards"></section>
   </main>
 
   <!-- ================= SEE THE ROUTE ================= -->
-  <section class="route teal">
+  <section class="route teal" id="route">
     <div class="col route-stage">
       <a class="circle-link" id="routeLink" target="_blank" rel="noopener" aria-label="Open the venue in Google Maps">
         <div class="ly scallop-wrap" style="--x:-199;--y:-18;--w:959;--h:959"><div class="scallop"></div></div>
@@ -144,7 +164,7 @@
   </section>
 
   <!-- ================= MEET THE BRIDE & GROOM (mint) ================= -->
-  <section class="mint">
+  <section class="mint" id="couple">
     <div class="col meet">
       <div class="meet-text">
         <img class="orn reveal" src="./assets/art/orn-blue-hearts.avif" style="--w:93" alt="">
@@ -163,7 +183,7 @@
   </section>
 
   <!-- ================= RSVP ================= -->
-  <section class="rsvp">
+  <section class="rsvp" id="rsvp">
     <div class="col rsvp-stage">
       <div class="circle-link">
         <img class="ly" src="./assets/art/rsvp-outer.avif" style="--x:-199;--y:-18;--w:959;--h:959" alt="">
@@ -183,7 +203,7 @@
   </section>
 
   <!-- ================= THINGS TO KNOW (floral) ================= -->
-  <section class="floral">
+  <section class="floral" id="know">
     <div class="col know">
       <h2 class="big cream reveal">Things to know</h2>
       <p class="note cream reveal">A few thoughtful details to help you feel at home and enjoy every moment of the celebrations.</p>
@@ -193,7 +213,7 @@
   </section>
 
   <!-- ================= FOLLOW THE ACTION ================= -->
-  <section class="insta">
+  <section class="insta" id="follow">
     <div class="col insta-stage">
       <a class="circle-link" id="instaLink" target="_blank" rel="noopener" aria-label="Open Instagram">
         <img class="ly" src="./assets/art/insta-outer.avif" style="--x:-201;--y:-30;--w:966;--h:1131" alt="">
@@ -209,7 +229,7 @@
   </section>
 
   <!-- ================= COUNTDOWN (cream) ================= -->
-  <footer class="cream-bg">
+  <footer class="cream-bg" id="countdown">
     <div class="col countdown">
       <h2 class="big navy reveal no-pdf">The countdown begins</h2>
       <!-- flip clock: each card is filled and animated by initCountdown() in app.js -->
@@ -225,6 +245,6 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=8"></script>
+  <script src="./app.js?v=9"></script>
 </body>
 </html>

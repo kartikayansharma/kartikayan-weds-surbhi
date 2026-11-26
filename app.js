@@ -343,6 +343,46 @@ function initMusicPlayer() {
 }
 
 // ============================================================
+// Floating index: open/close the list, jump to a section, and
+// mark the section currently on screen
+// ============================================================
+function initToc() {
+  const toc = $("#toc"), btn = $("#tocBtn"), list = $("#tocList");
+  const links = $$("a", list);
+  setTimeout(() => toc.classList.add("in-view"), 900);
+
+  const setOpen = (open) => {
+    toc.classList.toggle("open", open);
+    list.hidden = !open;
+    btn.setAttribute("aria-expanded", open);
+    btn.setAttribute("aria-label", open ? "Close the section list" : "Jump to a section");
+  };
+  btn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(list.hidden); });
+  document.addEventListener("click", (e) => { if (!toc.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+
+  links.forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = document.getElementById(a.hash.slice(1));
+    setOpen(false);
+    if (!target) return;
+    const y = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
+  }));
+
+  // highlight the last section whose top has passed the middle of the screen
+  const sections = links.map((a) => document.getElementById(a.hash.slice(1)));
+  const mark = () => {
+    const mid = window.innerHeight * 0.45;
+    let current = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= mid) current = i; });
+    links.forEach((a, i) => a.classList.toggle("current", i === current));
+  };
+  window.addEventListener("scroll", () => requestAnimationFrame(mark), { passive: true });
+  mark();
+}
+
+// ============================================================
 // PDF version: size the printed page to the whole card, so it
 // becomes one long page that scrolls like the website
 // ============================================================
@@ -376,4 +416,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initParallax();
   initScrollCue();
   initMusicPlayer();
+  initToc();
 });
