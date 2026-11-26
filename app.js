@@ -39,7 +39,7 @@ const WEDDING_DETAILS = {
         { time: "6:00 PM", title: "Sagai – Tikaa", icon: "diya" },
         { time: "6:30 PM", title: "Gaud Bharai", icon: "thali" },
         { time: "7:00 PM", title: "Engagement", icon: "ring" },
-        { time: "7:30 PM onwards", title: "Mehendi & Sangeet", icon: "hand" },
+        { time: "7:30 PM onwards", title: "Mehendi & Sangeet", image: "./assets/art/icon-disco.png" },
       ],
     },
     {
@@ -165,7 +165,6 @@ const TIMELINE_ICONS = {
   diya: '<path d="M3 14h18c-1 4-5 6-9 6s-8-2-9-6zM12 4c-2 2.5-2 5 0 7 2-2 2-4.5 0-7z"/>',
   thali: '<ellipse cx="12" cy="15" rx="9" ry="4"/><ellipse cx="12" cy="15" rx="5.5" ry="2"/><circle cx="7.5" cy="10" r="1.4"/><circle cx="16.5" cy="10" r="1.4"/><path d="M12 6.5c-1.2 1.5-1.2 3 0 4 1.2-1 1.2-2.5 0-4z"/>',
   ring: '<circle cx="12" cy="15" r="5.5"/><path d="M9 6.5L10.5 4h3L15 6.5 12 9.5z"/>',
-  hand: '<path d="M8 21v-5l-2.4-3.2a1.3 1.3 0 0 1 2.1-1.6L9 12.6V5.2a1.2 1.2 0 0 1 2.4 0V11V4.2a1.2 1.2 0 0 1 2.4 0V11V5.2a1.2 1.2 0 0 1 2.4 0V11.5V8a1.2 1.2 0 0 1 2.4 0v7a6 6 0 0 1-6 6z"/><circle cx="12.8" cy="15.5" r="1.6"/>',
   garland: '<path d="M6 3c0 9 3 14 6 14s6-5 6-14M12 17v4"/><circle cx="6.8" cy="8.5" r="1.3"/><circle cx="8.6" cy="12.8" r="1.3"/><circle cx="15.4" cy="12.8" r="1.3"/><circle cx="17.2" cy="8.5" r="1.3"/>',
   stand: '<path d="M4 17.5h16M6 17.5a6 3 0 0 1 12 0M7.5 10.5h9M9 10.5a3 2 0 0 1 6 0M12 4v4.5M12 17.5V21M9 21h6"/>',
   fire: '<path d="M12 3c3 3.5 5 6 5 9a5 5 0 0 1-10 0c0-2 1-3.2 2-4 0 1.8 1 3 2 3 0-3-1-5.5 1-8zM4 21h16M6.5 18h11"/>',
