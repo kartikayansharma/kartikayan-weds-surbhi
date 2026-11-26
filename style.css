@@ -502,6 +502,14 @@ html:not(.js) .flip-clock, html:not(.js) .music { display: none; }
 .reveal-init { opacity: 0; transform: scale(.8); transition: opacity .5s ease-out 1s, transform .5s ease-out 1s; }
 .reveal-init.in-view { opacity: 1; transform: scale(1); }
 
+/* ============ PDF version (open the page with ?pdf) ============
+   One tall page: no opening screen, music, scroll prompt or live
+   countdown, and everything shown at once without animation. */
+html.pdf .gate, html.pdf .music, html.pdf .scroll-cue, html.pdf .no-pdf { display: none !important; }
+html.pdf .reveal, html.pdf .reveal-init { opacity: 1 !important; transform: none !important; transition: none !important; }
+html.pdf, html.pdf body { overflow: visible; }
+html.pdf * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
 /* ============ Desktop / laptop ============
    Every section fills the screen width and its artwork scales with it, laid
    out like the phone design but wider: the opening scene is shorter (layers

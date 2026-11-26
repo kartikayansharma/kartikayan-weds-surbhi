@@ -18,7 +18,7 @@ const WEDDING_DETAILS = {
     mapLink: "https://www.google.com/maps/search/?api=1&query=La+Perle+River+Resort+Jim+Corbett+Ramnagar"
   },
   hashtag: "#Kartik_Got_Surprised",
-  coupleNote: "Childhood friends and now, forever partners. We are so happy that you will be celebrating with us in Jim Corbett. Your love and blessings mean the world to us, and we can't wait to see you at the celebrations.",
+  coupleNote: "Meet Kartik and Surbhi—two childhood companions who found their forever in each other. Kartik is the calm, steady anchor who grounds their world, while Surbhi is the vibrant spark that keeps it bright. Built on deep trust, easy laughter, and quiet strength, their journey now leads to a celebration of love and togetherness. They are endlessly grateful to have you by their side as they honor cherished traditions, grace the dance floor, and begin this next chapter.",
   // Photos shown inside the blue frame (swap in your own pre-wedding photos)
   couplePhotos: ["./assets/art/event-6.avif", "./assets/art/event-3.avif", "./assets/art/event-4.avif"],
   weather: "Jim Corbett in mid-February is pleasantly cool — sunny days around 22-23°C and crisp evenings near 8-9°C. Light woollens are recommended after sundown.",
@@ -343,6 +343,22 @@ function initMusicPlayer() {
 }
 
 // ============================================================
+// PDF version: size the printed page to the whole card, so it
+// becomes one long page that scrolls like the website
+// ============================================================
+function initPdf() {
+  initSlides(); // first photo only (slideshow does not advance in print)
+  const size = () => {
+    const el = document.documentElement;
+    let s = $("#pdfPage");
+    if (!s) { s = document.createElement("style"); s.id = "pdfPage"; document.head.appendChild(s); }
+    s.textContent = `@page { size: ${el.clientWidth}px ${Math.ceil(el.scrollHeight) + 2}px; margin: 0; }`;
+  };
+  size();
+  window.addEventListener("load", () => document.fonts.ready.then(size));
+}
+
+// ============================================================
 // Init
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -353,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderEventCards();
     renderOtherItems();
   }
+  if (document.documentElement.classList.contains("pdf")) return initPdf();
   initSlides();
   initCountdown();
   initRevealObserver();

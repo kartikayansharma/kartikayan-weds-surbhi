@@ -13,9 +13,9 @@
 
   <!-- marks that scripts run, so entrance animations only hide content when they can also reveal it;
        "gated" holds the page behind the opening screen until the guest taps it -->
-  <script>document.documentElement.classList.add("js", "gated");</script>
+  <script>document.documentElement.classList.add("js", /[?&]pdf\b/.test(location.search) ? "pdf" : "gated");</script>
   <!-- ?v= changes with each update, so browsers never keep an old copy -->
-  <link rel="stylesheet" href="./style.css?v=6">
+  <link rel="stylesheet" href="./style.css?v=7">
 </head>
 <body>
 
@@ -211,9 +211,9 @@
   <!-- ================= COUNTDOWN (cream) ================= -->
   <footer class="cream-bg">
     <div class="col countdown">
-      <h2 class="big navy reveal">The countdown begins</h2>
+      <h2 class="big navy reveal no-pdf">The countdown begins</h2>
       <!-- flip clock: each card is filled and animated by initCountdown() in app.js -->
-      <div class="flip-clock reveal" id="clock" role="timer" aria-live="off">
+      <div class="flip-clock reveal no-pdf" id="clock" role="timer" aria-live="off">
         <div class="flip-unit"><div class="flip" data-unit="days"></div><span class="flip-label navy">Days</span></div>
         <div class="flip-unit"><div class="flip" data-unit="hours"></div><span class="flip-label navy">Hours</span></div>
         <div class="flip-unit"><div class="flip" data-unit="mins"></div><span class="flip-label navy">Mins</span></div>
@@ -225,6 +225,6 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=6"></script>
+  <script src="./app.js?v=7"></script>
 </body>
 </html>
