@@ -20,13 +20,40 @@ const WEDDING_DETAILS = {
   hashtag: "#Kartik_Got_Surprised",
   coupleNote: "Two childhood companions who found their forever in each other. Kartik is the calm, steady anchor who grounds their world, while Surbhi is the vibrant spark that keeps it bright. Built on deep trust, easy laughter, and quiet strength, their journey now leads to a celebration of love and togetherness. They are endlessly grateful to have you by their side as they honor cherished traditions, grace the dance floor, and begin this next chapter.",
   // Photos shown inside the blue frame (swap in your own pre-wedding photos)
-  couplePhotos: [1, 2, 3, 4, 5, 6].map((n) => `./assets/photos/couple-${n}.jpg?v=2`), // ?v= makes browsers fetch re-edited photos
+  couplePhotos: [1, 2, 3].map((n) => `./assets/photos/couple-art-${n}.jpg`),
   weather: "Jim Corbett in mid-February is pleasantly cool — sunny days around 22-23°C and crisp evenings near 8-9°C. Light woollens are recommended after sundown.",
   parking: "[Parking arrangements at the venue.]",
   instagram: "", // e.g. "https://instagram.com/yourhandle" — if empty, opens the hashtag page
   rsvpLink: "",  // e.g. a Google Form. If empty, RSVP opens WhatsApp to the first contact.
   rsvp: [
     { name: "Kartikayan Sharma", phone: "+919968431431", display: "Kartikayan Sharma | +91 99684 31431" }
+  ],
+  // Day-by-day timeline (icon names are drawn by TIMELINE_ICONS below)
+  timeline: [
+    {
+      day: "Day 1", date: "Fri, 19 Feb", heading: "Friday, 19 February", start: "2027-02-19",
+      items: [
+        { time: "11:00 AM – 12:00 PM", title: "Guest Arrival & Check-in", icon: "suitcase" },
+        { time: "1:00 PM", title: "Welcome Lunch & Haldi Ceremony", icon: "plate" },
+        { time: "4:30 PM", title: "Evening Hi-Tea", icon: "cup" },
+        { time: "6:00 PM", title: "Sagai – Tikaa", icon: "diya" },
+        { time: "6:30 PM", title: "Gaud Bharai", icon: "thali" },
+        { time: "7:00 PM", title: "Engagement", icon: "ring" },
+        { time: "7:30 PM onwards", title: "Mehendi & Sangeet", icon: "hand" },
+      ],
+    },
+    {
+      day: "Day 2", date: "Sat, 20 Feb", heading: "Saturday, 20 February", start: "2027-02-20",
+      items: [
+        { time: "7:00 AM – 10:00 AM", title: "Breakfast", icon: "cup" },
+        { time: "12:00 PM", title: "Lunch", icon: "plate" },
+        { time: "1:00 PM", title: "Ghudchari & Baraat", image: "./assets/art/icon-ghodi.png" },
+        { time: "4:00 PM", title: "Varmala", icon: "garland" },
+        { time: "4:00 PM", title: "Sunset Snacks & Hi-Tea", icon: "stand" },
+        { time: "5:00 PM", title: "Phere", icon: "fire" },
+        { time: "6:00 PM onwards", title: "Dinner", icon: "cloche" },
+      ],
+    },
   ],
   events: [
     {
@@ -35,7 +62,7 @@ const WEDDING_DETAILS = {
       date: "Friday, Feb 19th 2027",
       time: "1:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "Blessing the couple with turmeric paste.",
+      description: "An afternoon of warm sunshine, blooming marigolds, and sacred blessings.",
     },
     {
       title: "Engagement & Sangeet",
@@ -43,7 +70,7 @@ const WEDDING_DETAILS = {
       date: "Friday, Feb 19th 2027",
       time: "6:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "An evening of engagement and sangeet celebrations, from 6 PM onwards.",
+      description: "Love is in the air, rings on the fingers, and beats on the floor.",
     },
     {
       title: "Baraat & Pheras",
@@ -51,7 +78,7 @@ const WEDDING_DETAILS = {
       date: "Saturday, Feb 20th 2027",
       time: "1:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "Baraat at 1 PM, varmala at 4 PM, sacred pheras at 6:30 PM, followed by wedding dinner.",
+      description: "Garlands, Sacred Fires & Eternal Promises. 7 Steps to Forever!",
     }
   ],
 };
@@ -127,6 +154,63 @@ function renderEventCards() {
       <a class="route-link" href="${esc(event.mapLink || d.venue.mapLink)}" target="_blank" rel="noopener noreferrer">See the route</a>
     </article>
   `).join("");
+}
+
+// ============================================================
+// RENDER: Day-by-day timeline — a tab per day, gold line icons
+// ============================================================
+const TIMELINE_ICONS = {
+  suitcase: '<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V8M8 8v12M16 8v12"/>',
+  plate: '<circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="3"/><path d="M3.5 4v4.5a1.5 1.5 0 0 0 3 0V4M5 9v11M20.5 20V4c-1.8 1.2-2.2 5-1 7h1"/>',
+  cup: '<path d="M5 10h11v3.5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 11h1.5a2.5 2.5 0 0 1 0 5H16M3 21h17M9 3.5c-.8.8.8 1.7 0 2.5M12.5 3.5c-.8.8.8 1.7 0 2.5"/>',
+  diya: '<path d="M3 14h18c-1 4-5 6-9 6s-8-2-9-6zM12 4c-2 2.5-2 5 0 7 2-2 2-4.5 0-7z"/>',
+  thali: '<ellipse cx="12" cy="15" rx="9" ry="4"/><ellipse cx="12" cy="15" rx="5.5" ry="2"/><circle cx="7.5" cy="10" r="1.4"/><circle cx="16.5" cy="10" r="1.4"/><path d="M12 6.5c-1.2 1.5-1.2 3 0 4 1.2-1 1.2-2.5 0-4z"/>',
+  ring: '<circle cx="12" cy="15" r="5.5"/><path d="M9 6.5L10.5 4h3L15 6.5 12 9.5z"/>',
+  hand: '<path d="M8 21v-5l-2.4-3.2a1.3 1.3 0 0 1 2.1-1.6L9 12.6V5.2a1.2 1.2 0 0 1 2.4 0V11V4.2a1.2 1.2 0 0 1 2.4 0V11V5.2a1.2 1.2 0 0 1 2.4 0V11.5V8a1.2 1.2 0 0 1 2.4 0v7a6 6 0 0 1-6 6z"/><circle cx="12.8" cy="15.5" r="1.6"/>',
+  garland: '<path d="M6 3c0 9 3 14 6 14s6-5 6-14M12 17v4"/><circle cx="6.8" cy="8.5" r="1.3"/><circle cx="8.6" cy="12.8" r="1.3"/><circle cx="15.4" cy="12.8" r="1.3"/><circle cx="17.2" cy="8.5" r="1.3"/>',
+  stand: '<path d="M4 17.5h16M6 17.5a6 3 0 0 1 12 0M7.5 10.5h9M9 10.5a3 2 0 0 1 6 0M12 4v4.5M12 17.5V21M9 21h6"/>',
+  fire: '<path d="M12 3c3 3.5 5 6 5 9a5 5 0 0 1-10 0c0-2 1-3.2 2-4 0 1.8 1 3 2 3 0-3-1-5.5 1-8zM4 21h16M6.5 18h11"/>',
+  cloche: '<path d="M3 17.5h18M4.5 17.5a7.5 7.5 0 0 1 15 0M12 10V8M10 8h4M2.5 20.5h19"/>',
+};
+
+function renderTimeline() {
+  const days = WEDDING_DETAILS.timeline;
+  // on the wedding days, open today's tab; before then, Day 1
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+  let open = Math.max(0, days.findLastIndex((d) => today >= d.start));
+
+  $("#tlTabs").innerHTML = days.map((d, i) => `
+    <button class="tl-tab" type="button" role="tab" id="tlTab${i}" aria-controls="tlDay${i}">
+      <span class="tl-tab-day">${fmt(d.day)}</span><span class="tl-tab-date">${fmt(d.date)}</span>
+    </button>`).join("");
+  $("#tlDays").innerHTML = days.map((d, i) => `
+    <div class="tl-day" role="tabpanel" id="tlDay${i}" aria-labelledby="tlTab${i}">
+      <h3 class="tl-day-head">${fmt(d.day)} · ${fmt(d.heading)}</h3>
+      <ol class="tl-list">
+        ${d.items.map((it) => `
+          <li class="tl-item">
+            <span class="tl-icon" aria-hidden="true">${it.image
+              ? `<img src="${esc(it.image)}" alt="">`
+              : `<svg viewBox="0 0 24 24">${TIMELINE_ICONS[it.icon] || ""}</svg>`}</span>
+            <div class="tl-text"><p class="tl-time">${fmt(it.time)}</p><p class="tl-title">${fmt(it.title)}</p></div>
+          </li>`).join("")}
+      </ol>
+    </div>`).join("");
+
+  const tabs = $$(".tl-tab"), panels = $$(".tl-day");
+  const show = (i, focus) => {
+    open = i;
+    tabs.forEach((t, j) => { t.setAttribute("aria-selected", i === j); t.tabIndex = i === j ? 0 : -1; });
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+    if (focus) tabs[i].focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => show(i));
+    t.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") show((open + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length, true);
+    });
+  });
+  show(open);
 }
 
 // ============================================================
@@ -407,6 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.documentElement.hasAttribute("data-prerendered")) {
     renderText();
     renderEventCards();
+    renderTimeline();
     renderOtherItems();
   }
   if (document.documentElement.classList.contains("pdf")) return initPdf();
