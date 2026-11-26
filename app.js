@@ -20,7 +20,7 @@ const WEDDING_DETAILS = {
   hashtag: "#Kartik_Got_Surprised",
   coupleNote: "Two childhood companions who found their forever in each other. Kartik is the calm, steady anchor who grounds their world, while Surbhi is the vibrant spark that keeps it bright. Built on deep trust, easy laughter, and quiet strength, their journey now leads to a celebration of love and togetherness. They are endlessly grateful to have you by their side as they honor cherished traditions, grace the dance floor, and begin this next chapter.",
   // Photos shown inside the blue frame (swap in your own pre-wedding photos)
-  couplePhotos: [1, 2, 3, 4].map((n) => `./assets/photos/couple-art-${n}.jpg?v=2`), // ?v= makes browsers fetch re-edited images
+  couplePhotos: [1, 2, 3, 4, 5].map((n) => `./assets/photos/couple-art-${n}.jpg?v=2`), // ?v= makes browsers fetch re-edited images
   weather: "Jim Corbett in mid-February is pleasantly cool — sunny days around 22-23°C and crisp evenings near 8-9°C. Light woollens are recommended after sundown.",
   parking: "[Parking arrangements at the venue.]",
   instagram: "", // e.g. "https://instagram.com/yourhandle" — if empty, opens the hashtag page
