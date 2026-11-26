@@ -78,7 +78,7 @@ const WEDDING_DETAILS = {
       date: "Saturday, Feb 20th 2027",
       time: "1:00 PM Onwards",
       venue: "La Perle River Resort, Jim Corbett",
-      description: "Garlands, Sacred Fires & Eternal Promises. 7 Steps to Forever!",
+      description: "Garlands, Sacred Fires & Eternal Promises!\n7 Steps to Forever!!", // \n starts a new line
     }
   ],
 };
@@ -151,7 +151,6 @@ function renderEventCards() {
       <h3>${fmt(event.title)}</h3>
       <p class="info">${fmt(event.date)}<br>${fmt(event.venue)}<br>${fmt(event.time)}</p>
       ${event.description ? `<p class="desc">${fmt(event.description)}</p>` : ""}
-      <a class="route-link" href="${esc(event.mapLink || d.venue.mapLink)}" target="_blank" rel="noopener noreferrer">See the route</a>
     </article>
   `).join("");
 }

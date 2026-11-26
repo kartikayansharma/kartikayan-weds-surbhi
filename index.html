@@ -15,7 +15,7 @@
        "gated" holds the page behind the opening screen until the guest taps it -->
   <script>document.documentElement.classList.add("js", /[?&]pdf\b/.test(location.search) ? "pdf" : "gated");</script>
   <!-- ?v= changes with each update, so browsers never keep an old copy -->
-  <link rel="stylesheet" href="./style.css?v=13">
+  <link rel="stylesheet" href="./style.css?v=14">
 </head>
 <body>
 
@@ -166,7 +166,8 @@
         <img class="ly" src="./assets/art/route-circle.avif" style="--x:-77;--y:104;--w:716;--h:716" alt="">
         <div class="circle-text" style="--y:560">
           <h2 class="big gold">See the<br>route</h2>
-          <p class="small cream">Click to open the map</p>
+          <p class="venue-name" data-bind="venue.name"></p>
+          <p class="small cream map-prompt">Click to open the map</p>
           <img class="orn" src="./assets/art/orn-gold-1.avif" style="--w:88" alt="">
         </div>
       </a>
@@ -255,6 +256,6 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=13"></script>
+  <script src="./app.js?v=14"></script>
 </body>
 </html>

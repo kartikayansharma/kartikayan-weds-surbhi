@@ -198,14 +198,10 @@ a { color: inherit; }
 }
 .event h3 { font-weight: 500; font-size: calc(58 * var(--u)); color: var(--gold); line-height: 1.05; }
 .event .info { margin-top: calc(10 * var(--u)); font-size: max(17px, calc(19 * var(--u))); color: var(--cream); line-height: 1.35; }
-.event .desc { margin: calc(8 * var(--u)) auto 0; max-width: calc(380 * var(--u)); font-style: italic; opacity: .8; font-size: max(16px, calc(17 * var(--u))); }
-.event .route-link {
-  display: inline-block;
-  margin-top: calc(14 * var(--u));
-  font-size: max(17px, calc(19 * var(--u)));
-  color: var(--gold);
-  text-underline-offset: 4px;
-}
+.event .desc { white-space: pre-line; margin: calc(8 * var(--u)) auto 0; max-width: calc(380 * var(--u)); font-style: italic; opacity: .8; font-size: max(16px, calc(17 * var(--u))); }
+/* route circle: resort name and a bold prompt under "See the route" */
+.circle-text .venue-name { margin-top: calc(10 * var(--u)); font-size: max(18px, calc(24 * var(--tu))); font-weight: 600; color: var(--gold-soft); line-height: 1.2; }
+.circle-text .map-prompt { font-weight: 700; }
 
 /* ============ CIRCLE CTAs (route / RSVP / Instagram) ============ */
 /* ============ Day-by-day timeline (inside the teal damask) ============ */
@@ -678,7 +674,7 @@ html.pdf * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
      than the card, centred over it */
   .event { container-type: inline-size; flex: 0 0 41vw; --u: calc(100cqw / 445); padding-bottom: 40px; }
   .event-art { width: calc(562 * var(--u)); margin-left: calc(50% - 281 * var(--u)); }
-  .event .info, .event .route-link { font-size: max(20px, calc(19 * var(--u))); }
+  .event .info { font-size: max(20px, calc(19 * var(--u))); }
   .event .desc { font-size: max(18px, calc(17 * var(--u))); }
 
   /* ---- circle call-to-actions ---- */
